@@ -1,8 +1,8 @@
+import time
+
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-import time
 
 DELAY = 3
 
@@ -17,31 +17,22 @@ class TwitterFollower:
         self.driver.get("https://twitter.com/i/flow/login")
         time.sleep(DELAY)
         self.driver.find_element(By.XPATH,
-                                 '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div['
-                                 '1]/div/div[5]/label').send_keys(email)
+                                 '/html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/div[5]/label').send_keys(email)
         self.driver.find_element(By.XPATH,
-                                 '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div['
-                                 '1]/div/div[6]/div').click()
+                                 '/html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div['
+                                 '2]/div[2]/div/div/div/div[6]/div').click()
         time.sleep(DELAY)
 
-        second_screen_xpath = '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div[' \
-                              '1]/div/div[1]/div[1]/span '
+        """ CHECKS TO SEE IF PROBLEM ON SECOND SCREEN """
+        self.check_second_screen()
 
-        if self.driver.find_element(By.XPATH, second_screen_xpath).text == "Enter your phone number or username":
-            self.driver.find_element(By.XPATH,
-                                     '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div['
-                                     '2]/div[1]/div/div[2]/label/div/div[2]/div/input').send_keys(
-                "energy_scouter")
-            self.driver.find_element(By.XPATH,
-                                     '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div['
-                                     '2]/div[2]/div/div').click()
         time.sleep(DELAY)
         self.driver.find_element(By.XPATH,
-                                 '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div['
-                                 '1]/div/div[3]/div/label/div/div[2]/div[1]/input').send_keys(password)
+                                 '/html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div['
+                                 '2]/div[2]/div[1]/div/div/div[3]/div/label').send_keys(password)
         self.driver.find_element(By.XPATH,
-                                 '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div['
-                                 '2]/div/div').click()
+                                 '/html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div['
+                                 '2]/div[2]/div[2]/div/div[1]/div/div').click()
 
     def find_followers(self, target):
         time.sleep(DELAY)
@@ -84,3 +75,16 @@ class TwitterFollower:
             if new_height == last_height:
                 break
             last_height = new_height
+
+    def check_second_screen(self):
+        second_screen_xpath = '/html/body/div/div/div/div[1]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[' \
+                              '2]/div[1]/div/div/div[1]/div/div/span/span '
+        if self.driver.find_element(By.XPATH, second_screen_xpath).text == "Enter your phone number or username":
+            self.driver.find_element(By.XPATH,
+                                     '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div['
+                                     '2]/div[ '
+                                     '1]/div/div[2]/label/div/div[2]/div/input').send_keys("energy_scouter")
+            self.driver.find_element(By.XPATH,
+                                     '//*[@id="layers"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div['
+                                     '2]/div[ '
+                                     '2]/div/div').click()
