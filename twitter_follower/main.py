@@ -1,10 +1,11 @@
 from TwitterFollower import TwitterFollower
 import os
+import twitter_follower.utils.config as config
 
 USERNAME = os.getenv("TWITTER_EMAIL")
 PASSWORD = os.getenv("TWITTER_PASSWORD")
-SIMILAR_ACCOUNT = "DrSimEvans"
-CHROME_DRIVER_PATH = "C:/Users/dunca/OneDrive/2_Areas/Coding/chromedriver/chromedriver.exe"
+SIMILAR_ACCOUNT = config.similar_account
+CHROME_DRIVER_PATH = config.chrome_driver_path
 
 
 if __name__ == "__main__":
