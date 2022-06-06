@@ -15,3 +15,18 @@ except KeyError:
 
 similar_account = config["similar_account"]
 chrome_driver_path = config["chrome_driver_path"]
+delay = config["delay"]
+scroll_delay = config["scroll_delay"]
+config_type = config["config_type"]
+
+
+if config['account_type'] == 'test':
+    email = config["email_test"]
+    password = config["password_test"]
+    username = config["username_test"]
+elif config['account_type'] == 'real':
+    email = config["email_real"]
+    password = config["password_real"]
+    username = config["username_real"]
+else:
+    raise Exception("Account Type is invalid.")
